@@ -24,7 +24,7 @@ flowchart LR
   Settings --> Privacy
   Settings --> Permissions
   Settings --> Diagnostics
-  Privacy -->|read-only| Info[What data is sent]
+  Privacy --> Info[What data is sent]
   Permissions --> Loc[Location]
   Permissions --> Notif[Notifications]
 ```

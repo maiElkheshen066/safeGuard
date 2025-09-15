@@ -21,7 +21,7 @@ On-device first, privacy-preserving detection of risky content. Send only risk s
 - `AIRiskEvent`: `{ category, score, evidenceMeta, occurredAt }`
 
 ### API Contracts
-- POST `/api/v1/child/ai/event` → report high-risk detections
+- POST `/api/v1/child/ai/event` -> report high-risk detections
 - Optional: media upload endpoint guarded by consent flags
 
 ### Sequence Diagram
@@ -33,7 +33,7 @@ sequenceDiagram
   C->>C: Run lightweight detectors on device
   alt High risk
     C->>B: POST /child/ai/event {category, score, evidenceMeta}
-    B-->>P: Notify guardians
+    B->>P: Notify guardians
   else Low risk
     C->>C: Log locally only
   end

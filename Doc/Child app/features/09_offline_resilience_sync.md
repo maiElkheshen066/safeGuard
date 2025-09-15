@@ -26,7 +26,7 @@ sequenceDiagram
   C->>B: Flush with exponential backoff when online
   alt 4xx validation
     C->>C: Drop and log
-  else 5xx/network
+  else 5xx or network error
     C->>C: Retry later
   end
 ```

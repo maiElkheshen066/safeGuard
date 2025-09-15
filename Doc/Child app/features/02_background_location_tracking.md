@@ -20,7 +20,7 @@ Continuously report device location with battery-aware intervals and accuracy co
 - `LocationPing`: `{ lat, lon, accuracy, speed?, heading?, batteryPct, ts, source }`
 
 ### API Contracts
-- POST `/api/v1/child/location` → `{ nextIntervalHint?: number }`
+- POST `/api/v1/child/location` -> `{ nextIntervalHint?: number }`
 - GET `/api/v1/child/geofence/zones` (used for local checks)
 
 ### Sequence Diagram
@@ -30,12 +30,12 @@ sequenceDiagram
   participant B as Backend
   C->>C: Collect GPS/Wi-Fi with heuristics
   C->>B: POST /child/location {ping}
-  B-->>C: 200 {nextIntervalHint}
+  B->>C: 200 {nextIntervalHint}
   C->>C: Adjust scheduler interval
 ```
 
 ### Algorithm Notes
-- Adaptive intervals: 15–60s in motion; 2–5min idle; longer on low battery
+- Adaptive intervals: 15-60s in motion; 2-5min idle; longer on low battery
 - Batch sends when offline; compress payloads if batching
 
 ### Acceptance Criteria

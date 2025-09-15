@@ -9,7 +9,7 @@ Receive critical messages/commands from guardians; show minimal UI; send acknowl
 
 ### UI/UX
 - Components: `ChatModal.tsx`, `FloatingNotification.tsx`
-- Behaviors: banner toast → tap opens modal → acknowledge button
+- Behaviors: banner toast -> tap opens modal -> acknowledge button
 
 ### Frontend Mapping
 - WS client subscribes to `message` topic on `wss /child/realtime`
@@ -19,8 +19,8 @@ Receive critical messages/commands from guardians; show minimal UI; send acknowl
 - `Message`: `{ msgId, type, title, body, action?, sentAt, readAt? }`
 
 ### API Contracts
-- WebSocket: `message` events
-- POST `/api/v1/child/message/ack` → `{ msgId, readAt }`
+- WebSocket: message events
+- POST `/api/v1/child/message/ack` -> `{ msgId, readAt }`
 
 ### Sequence Diagram
 ```mermaid
@@ -29,9 +29,9 @@ sequenceDiagram
   participant C as Child App
   participant P as Parent App
   P->>B: Send message to child
-  B-->>C: WS message {msg}
-  C->>C: Show toast → open modal
-  C->>B: POST /child/message/ack {msgId}
+  B->>C: WS message delivered
+  C->>C: Show toast then open modal
+  C->>B: POST /child/message/ack (msgId)
 ```
 
 ### Acceptance Criteria

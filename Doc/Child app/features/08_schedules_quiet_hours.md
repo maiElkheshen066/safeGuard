@@ -19,7 +19,7 @@ Honor guardian-defined schedules to reduce distractions; suppress non-critical n
 - `ScheduleRule`: `{ ruleId, quietHours: [{day, start, end}] }`
 
 ### API Contracts
-- GET `/api/v1/child/schedule` → `{ rules: ScheduleRule[] }`
+- GET `/api/v1/child/schedule` -> `{ rules: ScheduleRule[] }`
 
 ### Sequence Diagram
 ```mermaid
@@ -27,8 +27,8 @@ sequenceDiagram
   participant C as Child App
   participant B as Backend
   C->>B: GET /child/schedule
-  B-->>C: {rules}
-  C->>C: Compute activeNow; suppress non-critical toasts
+  B->>C: Return rules
+  C->>C: Compute activeNow and suppress non-critical toasts
 ```
 
 ### Acceptance Criteria

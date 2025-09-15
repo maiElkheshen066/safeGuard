@@ -10,7 +10,7 @@ Bind the child device to a family using a short code or QR from the parent app. 
 ### UI/UX
 - Screen: `PairingScreen.tsx`
   - Inputs: `pairCode` text field; QR scan option
-  - States: idle → verifying → success → routed to `MainScreen`
+  - States: idle -> verifying -> success -> routed to `MainScreen`
   - Errors: invalid/expired code; network; already paired
 
 ### Frontend Mapping
@@ -37,14 +37,14 @@ sequenceDiagram
   participant B as Backend
   participant P as Parent App
   C->>B: POST /child/auth/pair {pairCode, deviceInfo}
-  B->>B: Validate code, link device->child
-  B-->>C: 201 {deviceToken, childId}
-  B-->>P: Notify guardians (paired)
+  B->>B: Validate code and link device to child
+  B->>C: 201 {deviceToken, childId}
+  B->>P: Notify guardians (paired)
   C->>C: Save token securely; navigate Main
 ```
 
 ### Edge Cases
-- Expired/used code → prompt to regenerate from parent app
+- Expired/used code -> prompt to regenerate from parent app
 - Re-pair flow: invalidate old token, migrate queues
 
 ### Acceptance Criteria
