@@ -36,11 +36,11 @@ sequenceDiagram
   participant C as Child App
   participant B as Backend
   participant P as Parent App
-  C->>B: POST /child/auth/pair {pairCode, deviceInfo}
+  C->>B: POST /child/auth/pair with pair code and device info
   B->>B: Validate code and link device to child
-  B->>C: 201 {deviceToken, childId}
-  B->>P: Notify guardians (paired)
-  C->>C: Save token securely; navigate Main
+  B->>C: 201 with device token and child id
+  B->>P: Notify guardians about pairing
+  C->>C: Save token securely and navigate to Main
 ```
 
 ### Edge Cases

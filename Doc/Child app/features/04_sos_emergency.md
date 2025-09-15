@@ -16,10 +16,10 @@ One-gesture SOS that alerts guardians and streams live status until resolved.
 - State: `sos: { sosId?, status: 'idle'|'active'|'cancelled'|'resolved', startedAt, lastLocation }`
 
 ### API Contracts
-- POST `/api/v1/child/sos/start` -> `{ sosId }`
+- POST `/api/v1/child/sos/start` -> returns sos id
 - PATCH `/api/v1/child/sos/{id}/status` -> live updates
 - POST `/api/v1/child/sos/{id}/cancel`
-- WS `wss /child/realtime` topic `commands` -> `stand_down`
+- WS `wss /child/realtime` topic `commands` -> stand down
 
 ### Sequence Diagram
 ```mermaid
@@ -28,13 +28,13 @@ sequenceDiagram
   participant B as Backend
   participant P as Parent App
   C->>C: Long-press then confirm then countdown
-  C->>B: POST /child/sos/start {location}
-  B->>P: Push or WebSocket alert
+  C->>B: POST /child/sos/start with location
+  B->>P: Push or WebSocket alert to guardians
   loop while active
-    C->>B: PATCH /child/sos/{id}/status {location}
+    C->>B: PATCH /child/sos/{id}/status with location
   end
   alt Guardian resolves
-    B->>C: WS stand_down
+    B->>C: WS command stand down
     C->>C: Exit active state
   else Child cancels within window
     C->>B: POST /child/sos/{id}/cancel

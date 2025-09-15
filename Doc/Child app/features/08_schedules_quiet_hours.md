@@ -19,7 +19,7 @@ Honor guardian-defined schedules to reduce distractions; suppress non-critical n
 - `ScheduleRule`: `{ ruleId, quietHours: [{day, start, end}] }`
 
 ### API Contracts
-- GET `/api/v1/child/schedule` -> `{ rules: ScheduleRule[] }`
+- GET `/api/v1/child/schedule` -> returns schedule rules
 
 ### Sequence Diagram
 ```mermaid

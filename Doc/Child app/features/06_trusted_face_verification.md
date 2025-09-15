@@ -9,7 +9,7 @@ Local face verification to confirm SOS cancel or access guarded settings. Privac
 
 ### UI/UX
 - Screen: `TrustedFaceScanScreen.tsx`
-- Flow: Prompt -> camera preview -> liveness check (blink/move) -> match score -> pass/fail
+- Flow: Prompt -> camera preview -> liveness check (blink or move) -> match score -> pass or fail
 
 ### Frontend Mapping
 - Service: `faceVerificationService`
@@ -27,10 +27,10 @@ Local face verification to confirm SOS cancel or access guarded settings. Privac
 sequenceDiagram
   participant C as Child App
   C->>C: Capture face, run liveness, compare to template
-  alt Score >= threshold and liveness ok
-    C->>C: Unlock action (cancel SOS or open settings)
+  alt Score meets threshold and liveness ok
+    C->>C: Unlock action such as cancel SOS
   else Fail
-    C->>C: Offer retry or fallback PIN (if enabled)
+    C->>C: Offer retry or fallback PIN if enabled
   end
 ```
 

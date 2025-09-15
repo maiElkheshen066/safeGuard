@@ -32,7 +32,7 @@ sequenceDiagram
   participant P as Parent App
   C->>C: Run lightweight detectors on device
   alt High risk
-    C->>B: POST /child/ai/event {category, score, evidenceMeta}
+    C->>B: POST /child/ai/event with category and score
     B->>P: Notify guardians
   else Low risk
     C->>C: Log locally only

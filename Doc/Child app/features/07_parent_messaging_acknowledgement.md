@@ -20,7 +20,7 @@ Receive critical messages/commands from guardians; show minimal UI; send acknowl
 
 ### API Contracts
 - WebSocket: message events
-- POST `/api/v1/child/message/ack` -> `{ msgId, readAt }`
+- POST `/api/v1/child/message/ack` -> acknowledge message by id
 
 ### Sequence Diagram
 ```mermaid
@@ -29,9 +29,9 @@ sequenceDiagram
   participant C as Child App
   participant P as Parent App
   P->>B: Send message to child
-  B->>C: WS message delivered
+  B->>C: Deliver message via WebSocket
   C->>C: Show toast then open modal
-  C->>B: POST /child/message/ack (msgId)
+  C->>B: POST /child/message/ack with message id
 ```
 
 ### Acceptance Criteria

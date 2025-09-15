@@ -20,8 +20,8 @@ Monitor entry/exit of server-defined zones locally and emit events.
 - `GeofenceEvent`: `{ eventId?, zoneId, type: 'enter'|'exit', ts, location }`
 
 ### API Contracts
-- GET `/api/v1/child/geofence/zones` -> `{ zones: GeofenceZone[] }`
-- POST `/api/v1/child/geofence/event` -> `202`
+- GET `/api/v1/child/geofence/zones` -> returns list of zones
+- POST `/api/v1/child/geofence/event` -> returns accepted
 
 ### Sequence Diagram
 ```mermaid
@@ -29,9 +29,9 @@ sequenceDiagram
   participant C as Child App
   participant B as Backend
   C->>B: GET /child/geofence/zones
-  C->>C: Build local index (haversine distance)
+  C->>C: Build local index using distance calculations
   C->>C: On location update compute enter or exit
-  C->>B: POST /child/geofence/event {type, zoneId, ts, location}
+  C->>B: POST /child/geofence/event with type, zone id, timestamp, and location
   B->>C: 202 Accepted
 ```
 

@@ -24,7 +24,7 @@ flowchart LR
   Settings --> Privacy
   Settings --> Permissions
   Settings --> Diagnostics
-  Privacy --> Info[What data is sent]
+  Privacy --> Info[Data sent categories]
   Permissions --> Loc[Location]
   Permissions --> Notif[Notifications]
 ```

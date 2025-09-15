@@ -24,9 +24,9 @@ sequenceDiagram
   participant B as Backend
   C->>C: Enqueue events when offline
   C->>B: Flush with exponential backoff when online
-  alt 4xx validation
+  alt Validation error on client input
     C->>C: Drop and log
-  else 5xx or network error
+  else Server error or network issue
     C->>C: Retry later
   end
 ```
