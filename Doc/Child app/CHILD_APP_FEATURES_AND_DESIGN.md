@@ -90,10 +90,10 @@ sequenceDiagram
   participant C as Child App
   participant B as Backend
   participant P as Parent App
-  C->>B: POST /child/auth/pair {pairCode, deviceInfo}
-  B-->>C: 201 {deviceToken, childId}
-  B-->>P: Notify family devices (paired)
-  C->>C: Securely store deviceToken
+  C->>B: POST /child/auth/pair with pair code and device info
+  B->>C: 201 with device token and child id
+  B->>P: Notify family devices about pairing
+  C->>C: Securely store device token
 ```
 
 ### Periodic Location Ping
@@ -101,9 +101,9 @@ sequenceDiagram
 sequenceDiagram
   participant C as Child App
   participant B as Backend
-  C->>C: Collect GPS/Wi-Fi; throttle by battery
-  C->>B: POST /child/location {lat, lon, accuracy, ts, battery}
-  B-->>C: 200 {nextIntervalHint}
+  C->>C: Collect GPS or Wi-Fi and throttle by battery
+  C->>B: POST /child/location with lat lon accuracy time and battery
+  B->>C: 200 with next interval hint
   C->>C: Adjust scheduler interval
 ```
 
@@ -112,9 +112,9 @@ sequenceDiagram
 sequenceDiagram
   participant C as Child App
   participant B as Backend
-  C->>C: Local geofence check (enter/exit)
-  C->>B: POST /child/geofence/event {type, zoneId, ts, location}
-  B-->>C: 202 Accepted
+  C->>C: Local geofence check for enter or exit
+  C->>B: POST /child/geofence/event with type zone id time and location
+  B->>C: 202 Accepted
 ```
 
 ### SOS
@@ -123,14 +123,14 @@ sequenceDiagram
   participant C as Child App
   participant B as Backend
   participant P as Parent App
-  C->>C: Long-press SOS → confirm → 5s cancel
-  C->>B: POST /child/sos/start {ts, location}
-  B-->>P: Push/WebSocket alert to guardians
-  C-->>B: PATCH /child/sos/{id}/status {state: updating, liveLocation}
+  C->>C: Long-press SOS then confirm then 5s cancel
+  C->>B: POST /child/sos/start with time and location
+  B->>P: Push or WebSocket alert to guardians
+  C->>B: PATCH /child/sos/{id}/status with live location updates
   alt Cancelled in window
     C->>B: POST /child/sos/{id}/cancel
   else Resolved by guardian
-    B-->>C: WS: {action: stand_down}
+    B->>C: WS command stand down
   end
 ```
 
@@ -140,12 +140,12 @@ sequenceDiagram
   participant C as Child App
   participant B as Backend
   participant P as Parent App
-  C->>C: On-device text/image scan (lightweight)
+  C->>C: On-device text or image scan (lightweight)
   alt High risk
-    C->>B: POST /child/ai/event {type, score, evidenceMeta}
-    B-->>P: Notify guardians
+    C->>B: POST /child/ai/event with type score and evidence metadata
+    B->>P: Notify guardians
   else Low risk
-    C->>C: Log locally; no network
+    C->>C: Log locally and do not send
   end
 ```
 
